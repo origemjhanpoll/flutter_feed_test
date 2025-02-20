@@ -29,3 +29,11 @@ class PostError extends PostState {
   @override
   List<Object?> get props => [message];
 }
+
+class PostWarning extends PostState {
+  final String message;
+  const PostWarning(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

@@ -16,11 +16,11 @@ class Repository implements IRepository {
     try {
       final localData = await localService.getPosts();
       final remoteData = await remoteService.fetchPosts();
-
-      if (listEquals(localData, remoteData)) {
+      if (localData.isNotEmpty) {
         return localData.map((e) => PostModel.fromJson(e)).toList();
       }
 
+      await localService.savePosts(remoteData);
       return remoteData.map((e) => PostModel.fromJson(e)).toList();
     } catch (e) {
       debugPrint('Erro ao buscar posts: $e');
@@ -42,6 +42,23 @@ class Repository implements IRepository {
     } catch (e) {
       debugPrint('Erro ao adicionar post: $e');
       return 'Erro ao adicionar o post';
+    }
+  }
+
+  @override
+  Future<String> removePost(int id) async {
+    try {
+      final response = await remoteService.deletePost(id);
+
+      if (response['message'] != null) {
+        await localService.removePost(id);
+        return response['message'];
+      } else {
+        return 'Erro ao remover post';
+      }
+    } catch (e) {
+      debugPrint('Erro ao remover post: $e');
+      return 'Erro ao remover o post';
     }
   }
 }

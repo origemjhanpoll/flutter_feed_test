@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feed_test/app/views/pages/home_page.dart';
+import 'package:flutter_feed_test/app/views/home_page.dart';
+import 'package:flutter_feed_test/core/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -8,9 +9,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
       home: const HomePage(),
     );
   }
