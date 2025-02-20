@@ -102,7 +102,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   fontWeight: FontWeight.bold,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Título',
+                  labelText: 'Título*',
                   hintText: 'Digite o título',
                 ),
               ),

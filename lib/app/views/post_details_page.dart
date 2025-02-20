@@ -40,14 +40,21 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   builder: (BuildContext context) {
                     return AlertDialog.adaptive(
                       title: Text(
-                        "Confirmar Exclusão de Post",
+                        "CONFIMAR EXCLUSÃO",
                         style: theme.textTheme.titleMedium,
                       ),
                       content: Text(
                         'Tem certeza de que deseja excluir este post? Esta ação não pode ser desfeita.',
                       ),
+                      surfaceTintColor: theme.primaryColor,
+
                       actions: [
                         TextButton(
+                          style: ButtonStyle(
+                            overlayColor: WidgetStatePropertyAll(
+                              Colors.transparent,
+                            ),
+                          ),
                           child: Text(
                             "Cancelar",
                             style: theme.textTheme.bodyMedium!.copyWith(
@@ -59,6 +66,11 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           },
                         ),
                         TextButton(
+                          style: ButtonStyle(
+                            overlayColor: WidgetStatePropertyAll(
+                              Colors.transparent,
+                            ),
+                          ),
                           child: Text(
                             "Continuar",
                             style: theme.textTheme.bodyMedium!.copyWith(

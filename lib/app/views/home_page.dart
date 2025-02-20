@@ -38,26 +38,26 @@ class _HomePageState extends State<HomePage> {
     _listKey.currentState?.insertItem(0, duration: Durations.medium1);
   }
 
-  // void _removePost(int id) {
-  //   final index = _posts.indexWhere((post) => post.id == id);
-  //   if (index != -1) {
-  //     final removedPost = _posts.removeAt(index);
-  //     _listKey.currentState?.removeItem(
-  //       index,
-  //       (context, animation) => SizeTransition(
-  //         sizeFactor: animation,
-  //         child: PostWidget(
-  //           key: Key(removedPost.id.toString()),
-  //           id: removedPost.id,
-  //           userId: removedPost.userId,
-  //           title: removedPost.title,
-  //           body: removedPost.body,
-  //         ),
-  //       ),
-  //       duration: Durations.medium1,
-  //     );
-  //   }
-  // }
+  void _removePost(int id) {
+    final index = _posts.indexWhere((post) => post.id == id);
+    if (index != -1) {
+      final removedPost = _posts.removeAt(index);
+      _listKey.currentState?.removeItem(
+        index,
+        (context, animation) => SizeTransition(
+          sizeFactor: animation,
+          child: PostWidget(
+            key: Key(removedPost.id.toString()),
+            id: removedPost.id,
+            userId: removedPost.userId,
+            title: removedPost.title,
+            body: removedPost.body,
+          ),
+        ),
+        duration: Durations.medium1,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,40 +90,48 @@ class _HomePageState extends State<HomePage> {
                   _posts.addAll(state.posts);
                 }
 
-                return AnimatedList(
-                  key: _listKey,
-                  controller: _scrollController,
-                  initialItemCount: _posts.length,
-                  itemBuilder: (context, index, animation) {
-                    final post = _posts[index];
-
-                    return SizeTransition(
-                      sizeFactor: animation,
-                      child: InkWell(
-                        overlayColor: WidgetStatePropertyAll(
-                          theme.colorScheme.primary.withValues(alpha: 0.1),
-                        ),
-                        onTap: () {
-                          Navigator.of(context)
-                              .push<PostModel>(
-                                MaterialPageRoute(
-                                  builder: (_) => PostDetailsPage(post: post),
-                                ),
-                              )
-                              .then((post) {
-                                if (post != null) _cubit.removePost(post);
-                              });
-                        },
-                        child: PostWidget(
-                          key: Key(post.id.toString()),
-                          id: post.id,
-                          userId: post.userId,
-                          title: post.title,
-                          body: post.body,
-                        ),
-                      ),
-                    );
+                return RefreshIndicator.adaptive(
+                  onRefresh: () async {
+                    await _cubit.load();
                   },
+                  child: AnimatedList(
+                    key: _listKey,
+                    controller: _scrollController,
+                    initialItemCount: _posts.length,
+                    itemBuilder: (context, index, animation) {
+                      final post = _posts[index];
+
+                      return SizeTransition(
+                        sizeFactor: animation,
+                        child: InkWell(
+                          overlayColor: WidgetStatePropertyAll(
+                            theme.colorScheme.primary.withValues(alpha: 0.1),
+                          ),
+                          onTap: () {
+                            Navigator.of(context)
+                                .push<PostModel>(
+                                  MaterialPageRoute(
+                                    builder: (_) => PostDetailsPage(post: post),
+                                  ),
+                                )
+                                .then((post) {
+                                  if (post != null) {
+                                    _cubit.removePost(post);
+                                    _removePost(post.id);
+                                  }
+                                });
+                          },
+                          child: PostWidget(
+                            key: Key(post.id.toString()),
+                            id: post.id,
+                            userId: post.userId,
+                            title: post.title,
+                            body: post.body,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               } else if (state is PostEmpty) {
                 return const Center(
