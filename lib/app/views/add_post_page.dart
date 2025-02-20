@@ -119,7 +119,6 @@ class _AddPostPageState extends State<AddPostPage> {
                 decoration: InputDecoration(
                   labelText: 'Descrição',
                   hintText: 'Digite a descrição',
-                  // counter: Text('0/5000'),
                 ),
               ),
             ],
