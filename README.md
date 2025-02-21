@@ -12,7 +12,7 @@ Este aplicativo exibe uma lista de posts em um estilo minimalista, focado na lei
 ### Navegação
 
 <p align="center">
-  <img src="assets/media/screen.gif" width="50%" />
+  <img src="assets/media/screen.gif"  style="border-radius: 28px" width="50%" />
 </p>
 
 ## 🚀 Tecnologias Utilizadas
