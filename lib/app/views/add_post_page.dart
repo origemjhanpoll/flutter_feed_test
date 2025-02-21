@@ -45,6 +45,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   opacity: controller.text.isNotEmpty ? 1 : 0.2,
                   duration: Durations.medium2,
                   child: FilledButton.icon(
+                    key: Key('key-publicar'),
                     onPressed:
                         controller.text.isNotEmpty
                             ? () {

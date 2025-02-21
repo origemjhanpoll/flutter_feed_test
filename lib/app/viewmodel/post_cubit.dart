@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feed_test/app/models/post_model.dart';
 import 'package:flutter_feed_test/app/repositories/i_repository.dart';
@@ -25,8 +23,6 @@ class PostCubit extends Cubit<PostState> {
       } else {
         emit(PostSuccess(posts: posts));
       }
-    } on HttpException catch (error) {
-      emit(PostError(error.message));
     } catch (e) {
       emit(PostError('An unexpected error occurred: $e'));
     }

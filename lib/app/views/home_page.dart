@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   late PostCubit _cubit;
   final _scrollController = ScrollController();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
   final List<PostModel> _posts = [];
 
   @override
