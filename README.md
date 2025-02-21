@@ -11,9 +11,8 @@ Este aplicativo exibe uma lista de posts em um estilo minimalista, focado na lei
 
 ### Navegação
 
-<p align="center" style="position: relative; width: 100%; display: inline-block;">
-  <img src="assets/media/screen.gif" width="47%" style="border-radius: 54px; transform: scale(0.98)" />
-  <img src="assets/media/mock.png" width="51%" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+<p align="center">
+  <img src="assets/media/screen.gif" width="50%" />
 </p>
 
 ## 🚀 Tecnologias Utilizadas
